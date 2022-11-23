@@ -10,24 +10,18 @@ function Search() {
 
   return (
     <div className="Search">
-      <div className="Search-planets">
-        <h3>Planets of the StarWars universe</h3>
-        <label htmlFor="search">
-          <input
-            id="search"
-            type="text"
-            name="search"
-            data-testid="name-filter"
-            placeholder="Search the planets here..."
-            onChange={ handleChange }
-            value={ searchByName }
-          />
-        </label>
-      </div>
-      <div className="Search-filters">
-        <p>Filtros aqui...</p>
-      </div>
-
+      <h3>Planets of the StarWars universe</h3>
+      <label htmlFor="search">
+        <input
+          id="search"
+          type="text"
+          name="search"
+          data-testid="name-filter"
+          placeholder="Search the planets here..."
+          onChange={ handleChange }
+          value={ searchByName }
+        />
+      </label>
     </div>
   );
 }

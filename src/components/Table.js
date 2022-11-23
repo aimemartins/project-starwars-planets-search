@@ -4,6 +4,7 @@ import StarWarsContext from '../context/starWarsContext';
 function Table() {
   const { planets, searchByName } = useContext(StarWarsContext);
 
+  console.log(planets);
   const filterName = planets
     .filter((planet) => planet.name.toUpperCase().includes(searchByName.toUpperCase()));
 
