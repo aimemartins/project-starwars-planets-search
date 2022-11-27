@@ -1,26 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import StarWarsContext from '../context/starWarsContext';
 
 function RunningFilters() {
-  const [compareFilters, setCompareFilters] = useState([]);
+  const { filters, setFilters } = useContext(StarWarsContext);
 
-  const { planets, filters } = useContext(StarWarsContext);
-  const { column, comparison, valueFilter } = filters;
-
-  console.log(comparison);
-
-  // const filterComparison = (planets) => {
-  //   const filterByComparison = [];
-
-  //   // switch(comparison) {
-  //   //   case "maior que":
-  //   //     filterByComparison = planets.filter((planet) =>  )
-  //   // }
-  // };
+  const handleDeleteFilter = (index) => {
+    const deleteFilters = filters.filter((item, itemIndex) => itemIndex !== index);
+    setFilters(deleteFilters);
+  };
 
   return (
     <div className="Running">
       <p>Filtros em execução</p>
+      <div>
+        {filters.map((filter, index) => (
+          <p
+            key={ `${filter.column}-${index}` }
+            data-testid="filter"
+          >
+            {`${filter.column} ${filter.comparison} ${filter.number}`}
+            <button
+              type="button"
+              onClick={ () => handleDeleteFilter(index) }
+            >
+              x
+            </button>
+          </p>
+        ))}
+      </div>
     </div>
   );
 }

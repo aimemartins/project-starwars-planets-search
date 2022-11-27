@@ -1,24 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import StarWarsContext from '../context/starWarsContext';
 
 function Filters() {
-  const [inputs, setInputs] = useState({
-    column: 'population',
-    comparison: 'maior que',
-    valueFilter: 0,
-  });
+  const {
+    column,
+    setColumn,
+    comparison,
+    setComparison,
+    number,
+    setNumber,
+    filters,
+    setFilters,
+  } = useContext(StarWarsContext);
 
-  const { setFilters } = useContext(StarWarsContext);
-
-  const handleChange = ({ target }) => {
-    setInputs({
-      ...inputs,
-      [target.name]: target.value,
-    });
-  };
+  /* IMPORTANTE: É preciso do spread do filters
+pq vamos precisar adicionar mais de um filtro */
 
   const handleClick = () => {
-    setFilters(inputs);
+    const newFilters = {
+      column,
+      comparison,
+      number,
+    };
+    setFilters([...filters, newFilters]);
   };
 
   return (
@@ -30,13 +34,14 @@ function Filters() {
           id="column"
           data-testid="column-filter"
           name="column"
-          onChange={ handleChange }
+          value={ column }
+          onChange={ ({ target }) => setColumn(target.value) }
         >
-          <option value="population ">population</option>
+          <option value="population">population</option>
           <option value="orbital_period">orbital_period</option>
-          <option value="diameter ">diameter</option>
-          <option value="rotation_period ">rotation_period</option>
-          <option value="surface_water ">surface_water</option>
+          <option value="diameter">diameter</option>
+          <option value="rotation_period">rotation_period</option>
+          <option value="surface_water">surface_water</option>
         </select>
       </label>
       <label htmlFor="comparison">
@@ -45,21 +50,23 @@ function Filters() {
           id="comparison"
           data-testid="comparison-filter"
           name="comparison"
-          onChange={ handleChange }
+          value={ comparison }
+          onChange={ ({ target }) => setComparison(target.value) }
         >
-          <option value="maior que ">maior que</option>
+          <option value="maior que">maior que</option>
           <option value="menor que">menor que</option>
-          <option value="igual a ">igual a</option>
+          <option value="igual a">igual a</option>
         </select>
       </label>
       <label htmlFor="value-filter">
         Número
         <input
           type="number"
-          id="value-filter"
+          id="number"
           data-testid="value-filter"
-          name="valueFilter"
-          onChange={ handleChange }
+          name="number"
+          value={ number }
+          onChange={ ({ target }) => setNumber(target.value) }
         />
       </label>
       <button
@@ -75,3 +82,23 @@ function Filters() {
 }
 
 export default Filters;
+
+// if (comparison === 'maior que') {
+//   const response = planets.filter(
+//     (el) => (Number(el[column]) > Number(number)),
+//   );
+//   setPlanets(response);
+// }
+
+// if (comparison === 'menor que') {
+//   const response = planets.filter(
+//     (el) => (Number(el[column]) < Number(number)),
+//   );
+//   setPlanets(response);
+// }
+// if (comparison === 'igual a') {
+//   const response = planets.filter(
+//     (el) => (Number(el[column]) === Number(number)),
+//   );
+//   setPlanets(response);
+// }

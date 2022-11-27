@@ -7,26 +7,57 @@ import starWarsAPI from '../services/starWarsAPI';
 todos os dados e lógica referente ao tema da nossa aplicação */
 
 function StarWarsProvider({ children }) {
-  const [planets, setPlanets] = useState([]); // armazena retorno da api
-  const [searchByName, setSearchByName] = useState(''); // armazena os values do input
-  const [filters, setFilters] = useState({
-    column: 'population',
-    comparison: 'maior que',
-    valueFilter: 0,
-  }); // ainda sem utilidade
+  const [planets, setPlanets] = useState([]);
+  const [planetsFiltered, setplanetsFiltered] = useState([]);
+  const [searchByName, setSearchByName] = useState('');
+  const [column, setColumn] = useState('population');
+  const [comparison, setComparison] = useState('maior que');
+  const [number, setNumber] = useState(0);
+  const [filters, setFilters] = useState([]);
+
+  const handleAPI = async () => {
+    const response = await starWarsAPI();
+    setPlanets(response);
+    setplanetsFiltered(response);
+  };
 
   useEffect(() => {
-    starWarsAPI().then((response) => setPlanets(response));
+    handleAPI();
   }, []);
 
   const value = useMemo(() => ({
     planets,
+    setPlanets,
     searchByName,
     setSearchByName,
     filters,
     setFilters,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
+    number,
+    setNumber,
+    planetsFiltered,
+    setplanetsFiltered,
 
-  }), [planets, searchByName, setSearchByName, filters, setFilters]);
+  }), [
+    planets,
+    setPlanets,
+    searchByName,
+    setSearchByName,
+    filters,
+    setFilters,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
+    number,
+    setNumber,
+    planetsFiltered,
+    setplanetsFiltered,
+
+  ]);
 
   return (
     <StarWarsContext.Provider value={ value }>

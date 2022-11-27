@@ -1,13 +1,42 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import StarWarsContext from '../context/starWarsContext';
 
 function Table() {
-  const { planets, searchByName } = useContext(StarWarsContext);
+  const {
+    planets,
+    searchByName,
+    planetsFiltered,
+    filters,
+    setplanetsFiltered,
+  } = useContext(StarWarsContext);
 
-  console.log(planets);
-  const filterName = planets
-    .filter((planet) => planet.name.toUpperCase().includes(searchByName.toUpperCase()));
+  /* UseEffect para quando eu começar a digitar e carregar o seachByName
+  ele ao mesmo tempo seta um  estado (planetsFiltered) só para
+  o retorno da pesquisa */
 
+  useEffect(() => {
+    const filterName = planets
+      .filter((planet) => planet.name.toUpperCase().includes(searchByName.toUpperCase()));
+
+    // reduce faz o saldo no acumulador
+    const generalFilters = filters.reduce((acc, filter) => acc.filter((planet) => {
+      console.log('filter', filters);
+      switch (filter.comparison) {
+      case 'maior que':
+        return (Number(planet[filter.column]) > Number(filter.number));
+      case 'menor que':
+        return (Number(planet[filter.column]) < Number(filter.number));
+      // case 'igual a':
+      //   return
+      default:
+        return (Number(planet[filter.column]) === Number(filter.number));
+      }
+    }), filterName);
+
+    setplanetsFiltered(generalFilters);
+  }, [searchByName, filters, setplanetsFiltered, planets]);
+
+  console.log('planetsFiltered', planetsFiltered);
   return (
     <table>
       <thead>
@@ -28,7 +57,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {filterName.map((planet) => (
+        {planetsFiltered.map((planet) => (
           <tr key={ planet.name }>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>
@@ -51,3 +80,33 @@ function Table() {
 }
 
 export default Table;
+
+// const filterName = () => {
+//   const response = planets
+//     .filter((planet) => planet.name.toUpperCase().includes(searchByName.toUpperCase()));
+//   return response;
+// };
+// const generalFilter = () => {
+//   filters.forEach((el) => {
+//     if (el.comparison === 'maior que') {
+//       const response = planetsFiltered
+//         .filter((planet) => (Number(planet[el.column]) > Number(el.number)));
+//       setplanetsFiltered(response);
+//     }
+//     if (el.comparison === 'menor que') {
+//       const response = planetsFiltered
+//         .filter((planet) => (Number(planet[el.column]) < Number(el.number)));
+//       setplanetsFiltered(response);
+//     }
+//     if (el.comparison === 'igual a') {
+//       const response = planetsFiltered
+//         .filter((planet) => (Number(planet[el.column]) === Number(el.number)));
+//       setplanetsFiltered(response);
+//     }
+//   });
+// };
+
+// useEffect(() => {
+//   filterName();
+//   generalFilter();
+// }, [filters, planetsFiltered, searchByName]);
