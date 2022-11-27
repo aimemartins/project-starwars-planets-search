@@ -25,6 +25,10 @@ pq vamos precisar adicionar mais de um filtro */
     setFilters([...filters, newFilters]);
   };
 
+  const handleRemoveAllFilters = () => {
+    setFilters([]);
+  };
+
   return (
     <div className="Filters">
       <p>Filtros</p>
@@ -76,29 +80,16 @@ pq vamos precisar adicionar mais de um filtro */
       >
         Filtrar
       </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ handleRemoveAllFilters }
+      >
+        Remover todos os filtros
+      </button>
 
     </div>
   );
 }
 
 export default Filters;
-
-// if (comparison === 'maior que') {
-//   const response = planets.filter(
-//     (el) => (Number(el[column]) > Number(number)),
-//   );
-//   setPlanets(response);
-// }
-
-// if (comparison === 'menor que') {
-//   const response = planets.filter(
-//     (el) => (Number(el[column]) < Number(number)),
-//   );
-//   setPlanets(response);
-// }
-// if (comparison === 'igual a') {
-//   const response = planets.filter(
-//     (el) => (Number(el[column]) === Number(number)),
-//   );
-//   setPlanets(response);
-// }
