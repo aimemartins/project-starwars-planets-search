@@ -14,6 +14,13 @@ function StarWarsProvider({ children }) {
   const [comparison, setComparison] = useState('maior que');
   const [number, setNumber] = useState(0);
   const [filters, setFilters] = useState([]);
+  const [options, setOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   const handleAPI = async () => {
     const response = await starWarsAPI();
@@ -40,6 +47,8 @@ function StarWarsProvider({ children }) {
     setNumber,
     planetsFiltered,
     setplanetsFiltered,
+    options,
+    setOptions,
 
   }), [
     planets,
@@ -56,7 +65,8 @@ function StarWarsProvider({ children }) {
     setNumber,
     planetsFiltered,
     setplanetsFiltered,
-
+    options,
+    setOptions,
   ]);
 
   return (

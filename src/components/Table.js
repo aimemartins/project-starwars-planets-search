@@ -80,33 +80,3 @@ function Table() {
 }
 
 export default Table;
-
-// const filterName = () => {
-//   const response = planets
-//     .filter((planet) => planet.name.toUpperCase().includes(searchByName.toUpperCase()));
-//   return response;
-// };
-// const generalFilter = () => {
-//   filters.forEach((el) => {
-//     if (el.comparison === 'maior que') {
-//       const response = planetsFiltered
-//         .filter((planet) => (Number(planet[el.column]) > Number(el.number)));
-//       setplanetsFiltered(response);
-//     }
-//     if (el.comparison === 'menor que') {
-//       const response = planetsFiltered
-//         .filter((planet) => (Number(planet[el.column]) < Number(el.number)));
-//       setplanetsFiltered(response);
-//     }
-//     if (el.comparison === 'igual a') {
-//       const response = planetsFiltered
-//         .filter((planet) => (Number(planet[el.column]) === Number(el.number)));
-//       setplanetsFiltered(response);
-//     }
-//   });
-// };
-
-// useEffect(() => {
-//   filterName();
-//   generalFilter();
-// }, [filters, planetsFiltered, searchByName]);

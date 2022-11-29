@@ -11,10 +11,9 @@ function Filters() {
     setNumber,
     filters,
     setFilters,
+    options,
+    setOptions,
   } = useContext(StarWarsContext);
-
-  /* IMPORTANTE: É preciso do spread do filters
-pq vamos precisar adicionar mais de um filtro */
 
   const handleClick = () => {
     const newFilters = {
@@ -22,7 +21,20 @@ pq vamos precisar adicionar mais de um filtro */
       comparison,
       number,
     };
+    /* IMPORTANTE: É preciso do spread do filters
+    pq vamos precisar adicionar mais de um filtro */
     setFilters([...filters, newFilters]);
+
+    const renderedOptions = options.filter((option) => option !== column);
+    setOptions(renderedOptions);
+    // dúvida - pq o índice pode ser qualquer número?!
+    // dúvida 2 - pq precisa setar o setColumn com índice 0?
+
+    /* comentário de Sérgio Moreira -  Provavelmente sem o setColumn[0] ele retorna
+    todos os filtros pra serem selecionados, e aí o teste quebra porque ele espera
+    que não tenha todas as opções lá em cima porque duas opções foram selecionadas
+    e só uma clicada pra remover */
+    setColumn(renderedOptions[100]);
   };
 
   const handleRemoveAllFilters = () => {
@@ -41,11 +53,19 @@ pq vamos precisar adicionar mais de um filtro */
           value={ column }
           onChange={ ({ target }) => setColumn(target.value) }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {' '}
+          {
+            options
+              .map((option, index) => (
+                <option
+                  key={ index }
+                  value={ option }
+                >
+                  {option}
+                </option>
+              ))
+          }
+          ;
         </select>
       </label>
       <label htmlFor="comparison">
