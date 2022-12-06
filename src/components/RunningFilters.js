@@ -22,6 +22,7 @@ function RunningFilters() {
             <button
               type="button"
               onClick={ () => handleDeleteFilter(index) }
+              data-testid="delete-filter"
             >
               x
             </button>

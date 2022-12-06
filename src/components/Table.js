@@ -20,7 +20,6 @@ function Table() {
 
     // reduce faz o saldo no acumulador
     const generalFilters = filters.reduce((acc, filter) => acc.filter((planet) => {
-      console.log('filter', filters);
       switch (filter.comparison) {
       case 'maior que':
         return (Number(planet[filter.column]) > Number(filter.number));
@@ -36,7 +35,6 @@ function Table() {
     setplanetsFiltered(generalFilters);
   }, [searchByName, filters, setplanetsFiltered, planets]);
 
-  console.log('planetsFiltered', planetsFiltered);
   return (
     <table>
       <thead>
@@ -59,7 +57,7 @@ function Table() {
       <tbody>
         {planetsFiltered.map((planet) => (
           <tr key={ planet.name }>
-            <td>{planet.name}</td>
+            <td data-testid="planet-name">{planet.name}</td>
             <td>{planet.rotation_period}</td>
             <td>{planet.orbital_period}</td>
             <td>{planet.diameter}</td>

@@ -45,7 +45,7 @@ function Filters() {
     <div className="Filters">
       <p>Filtros</p>
       <label htmlFor="column">
-        Category
+        Categoria
         <select
           id="column"
           data-testid="column-filter"
